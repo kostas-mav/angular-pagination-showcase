@@ -1,0 +1,15 @@
+:host {
+  img {
+    width: 250px; /* Adjust the desired width */
+    height: 250px; /* Adjust the desired height */
+    object-fit: cover; /* Optional: Maintain aspect ratio and cover the entire container */
+  }
+
+  /* Media query for screens narrower than 768px */
+  @media (max-width: 768px) {
+    img {
+      width: 150px; /* Adjust the width for smaller screens */
+      height: 150px; /* Adjust the height for smaller screens */
+    }
+  }
+}

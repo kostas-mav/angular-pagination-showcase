@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DBItem } from 'src/app/data-access.service';
 
 @Component({
   selector: 'app-card',
@@ -10,5 +9,5 @@ import { DBItem } from 'src/app/data-access.service';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input({ required: true }) item!: DBItem;
+  @Input({ required: true }) imgUrl!: string;
 }
