@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css"; // Needed for certain Material component interactions
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,4 +22,8 @@ body {
   margin: 0;
   height: 100vh;
   width: 100vw;
+}
+
+las {
+  font-weight: 500;
 }
