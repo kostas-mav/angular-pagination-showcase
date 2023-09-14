@@ -1,0 +1,40 @@
+<div class="toolbar">
+  <form class="flex justify-between w-full">
+    <li class="toolbar-item">
+      <app-tooltip [message]="tooltipMessage"></app-tooltip>
+    </li>
+
+    <li class="toolbar-item justify-center">
+      <span>Pagination/Infinite Scroll Showcase</span>
+    </li>
+
+    <li class="toolbar-item justify-end">
+      <span>Item limit per request:</span>
+      <input [formControl]="limitControl" type="number" min="20" max="50" />
+    </li>
+  </form>
+</div>
+
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="150"
+  [scrollWindow]="false"
+  (scrolled)="loadMore()"
+  class="grid"
+>
+  <app-card
+    *ngFor="let imgUrl of imgUrls$ | async"
+    [imgUrl]="imgUrl"
+  ></app-card>
+</div>
+
+<div class="footer">
+  <button
+    matTooltip="Or scroll to the end"
+    class="load-more-button"
+    (click)="loadMore()"
+  >
+    Load More
+  </button>
+</div>
