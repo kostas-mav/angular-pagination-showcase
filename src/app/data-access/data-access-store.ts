@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { finalize, take, tap, withLatestFrom } from 'rxjs';
 import { ComponentStore } from '@ngrx/component-store';
-
-interface DogApiResponse {
-  message: string[];
-  status: string;
-}
+import { DataAccessService } from './data-access.service';
 
 interface AppStore {
   items: string[];
@@ -17,7 +12,7 @@ interface AppStore {
 @Injectable({
   providedIn: 'root',
 })
-export class DataAccessService extends ComponentStore<AppStore> {
+export class DataAccessStore extends ComponentStore<AppStore> {
   constructor() {
     super({
       items: [],
@@ -26,7 +21,7 @@ export class DataAccessService extends ComponentStore<AppStore> {
     });
   }
 
-  private http = inject(HttpClient);
+  private dataAccessService: DataAccessService = inject(DataAccessService);
 
   readonly items$ = this.select((state) => state.items);
   readonly loading$ = this.select((state) => state.loading);
@@ -43,10 +38,8 @@ export class DataAccessService extends ComponentStore<AppStore> {
       withLatestFrom(this.limit$),
       tap(([$, limit]) => {
         this.patchState({ loading: true });
-        this.http
-          .get<DogApiResponse>(
-            `https://dog.ceo/api/breeds/image/random/${limit}`
-          )
+        this.dataAccessService
+          .getImages(limit)
           .pipe(
             take(1),
             tap((items) => {
@@ -70,10 +63,8 @@ export class DataAccessService extends ComponentStore<AppStore> {
         } else {
           this.patchState({ loading: true });
 
-          this.http
-            .get<DogApiResponse>(
-              `https://dog.ceo/api/breeds/image/random/${limit}`
-            )
+          this.dataAccessService
+            .getImages(limit)
             .pipe(
               take(1),
               withLatestFrom(this.items$),
